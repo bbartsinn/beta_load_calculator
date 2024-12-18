@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('loadCalcForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    
 
     const conductorType = document.getElementById('conductorType').value;
 
@@ -167,14 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
         html += `<p><strong>Service Conductor Type and Size:</strong> ${resultData["Service Conductor Type and Size"]}</p>`;
         // Show units detail
         html += `<h3>Units Detail</h3>`;
-        unitsData.forEach(unit => {
+        unitsData.forEach((unit, i) => {
+          const unitType = selectedUnits[i]; // Get unit type (SFD, SS, LWH)
           html += `<div class="unit-result">`;
-          html += `<p><strong>Unit ${unit.unit_index}:</strong></p>`;
+          html += `<p><strong>Unit ${unitType}:</strong></p>`;
           html += `<p>Area (m²): ${unit.area_m2}</p>`;
-          html += `<p>Total Unit Load (Watts): ${unit.total_unit_load_watts}</p>`;
+          html += `<p>Total Unit Load (Watts): ${unit.calculated_load}</p>`;
           html += `<p>Unit Amps: ${unit.unit_amps.toFixed(2)} A</p>`;
-          html += `<p>Unit Panel OCP Size: ${unit.unit_panel_ocp_size}</p>`;
-          html += `<p>Unit Panel Conductor: ${unit.unit_panel_conductor}</p>`;
+          html += `<p>Unit Panel OCP Size: ${unit.unit_ocp}</p>`;
+          html += `<p>Unit Panel Conductor: ${unit.unit_conductor}</p>`;
           html += `</div>`;
         });
       }
